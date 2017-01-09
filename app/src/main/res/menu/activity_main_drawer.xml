@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/monasticDisciplesBtn"
         android:icon="@drawable/ic_menu_send"
         android:title="Monastic Disciples" />
     <item

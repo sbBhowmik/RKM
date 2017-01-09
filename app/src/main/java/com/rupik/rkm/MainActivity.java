@@ -167,6 +167,12 @@ public class MainActivity extends AppCompatActivity
 //            invalidateOptionsMenu();
 //        }
 
+        if(id == R.id.monasticDisciplesBtn)
+        {
+            Intent i = new Intent(this, DisciplesListActivity.class);
+            startActivity(i);
+        }
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
