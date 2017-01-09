@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_menu_send"
+        android:title="Monastic Disciples" />
+    <item
+        android:icon="@drawable/ic_menu_send"
+        android:title="Householder disciples" />
+
+    <item
+        android:icon="@drawable/ic_menu_send"
+        android:title="Important Personalities" />
+
+    <item
+        android:icon="@drawable/menu_marker"
+        android:title="Short Stories" />
+
+    <item
+        android:icon="@drawable/menu_marker"
+        android:title="Quotes"/>
+
+    <item
+        android:icon="@drawable/menu_marker"
+        android:title="Add Facts"/>
+
+    <item
+        android:icon="@drawable/menu_marker"
+        android:title="Voice Your Opinion"/>
+
+    <item
+        android:icon="@drawable/menu_marker"
+        android:title="Books"/>
+
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/ic_menu_share"
+        android:title="Share" />
+
+
+
+</menu>

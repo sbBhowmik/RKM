@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rupik.rkm.MainActivity"
+    tools:showIn="@layout/app_bar_main"
+    android:background="@drawable/home_wall_bg"
+    android:padding="0dp"
+    >
+
+    <ImageView
+        android:id="@+id/homeWallIV"
+        android:layout_width="match_parent"
+        android:src="@drawable/scene_2"
+        android:scaleType="centerCrop"
+        android:layout_above="@+id/linearLayoutID"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/quoteTV"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Be not in despair, the way is very difficult, like walking on the edge of a razor; yet despair not, arise, awake, and find the ideal, the goal"
+        android:textColor="#ffffff"
+        android:background="@drawable/quotes_bg"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/authorTV"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/quoteTV"
+        android:textColor="#ffffff"
+        android:background="@drawable/author_bg"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:text="- Swami Vivekananda"
+        android:gravity="right"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="44dp"
+        >
+
+        <ImageButton
+            android:id="@+id/swamijiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_weight="0.33"
+            android:src="@drawable/swamiji"
+            android:scaleType="fitXY"
+            android:background="@drawable/img_button_bg"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="3dp"
+            />
+
+        <ImageButton
+            android:id="@+id/thakurButton"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_weight="0.33"
+            android:src="@drawable/thakur"
+            android:scaleType="fitXY"
+            android:background="@drawable/img_button_bg"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            />
+
+        <ImageButton
+            android:id="@+id/maaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_weight="0.33"
+            android:src="@drawable/maa"
+            android:scaleType="fitXY"
+            android:background="@drawable/img_button_bg"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="3dp"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

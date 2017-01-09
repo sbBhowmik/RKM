@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="English"
+        android:id="@+id/lang_sel_eng"
+        android:icon="@drawable/om_logo"
+        android:orderInCategory="100"
+        />
+    <item
+        android:title="বাংলা"
+        android:id="@+id/lang_sel_bengali"
+        android:icon="@drawable/scene_1"
+        android:orderInCategory="101"
+        />
+</menu>

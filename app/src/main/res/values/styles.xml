@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#f2ab54</item>
+        <item name="colorPrimaryDark">#824802</item>
+        <item name="colorAccent">#281805</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyOverFlow</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">#f2ab54</item>
+        <item name="colorPrimaryDark">#824802</item>
+        <item name="colorAccent">#281805</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyOverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/eng_beng_1</item>
+    </style>
+
+    <style name="MyThemeOverlay" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:src">@drawable/orange_texture</item>
+    </style>
+
+</resources>
