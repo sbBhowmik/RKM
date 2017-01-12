@@ -30,7 +30,7 @@ public class DisciplesListActivity extends AppCompatActivity {
     private void populateDataSourceForMonasticDisciples()
     {
         dataList = new ArrayList<>();
-
+//test
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(MonkName,"Swami Vivekananda");
         hashMap.put(MonkImageName,"swamiji");
