@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/quotes_QuoteTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="God can be realized through all paths. All religions are true. The important thing is to reach the roof. You can reach it by stone stairs or by wooden stairs or by bamboo steps or by a rope. You can also climb up by a bamboo pole."
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/quotes_AuthorTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Sri Ramakrishna"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#FFFFFF"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:layout_marginTop="5dp"
+        />
+
+</LinearLayout>

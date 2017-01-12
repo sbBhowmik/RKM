@@ -18,6 +18,7 @@
         android:title="Short Stories" />
 
     <item
+        android:id="@+id/QuotesBtn"
         android:icon="@drawable/menu_marker"
         android:title="Quotes"/>
 

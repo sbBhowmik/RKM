@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,11 +28,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
@@ -69,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        fetchQuoteJson();
         changeQuote();
         changeHomeWall();
 
@@ -117,6 +127,12 @@ public class MainActivity extends AppCompatActivity
         swamijiButton.setOnClickListener(buttonOnClickListener);
         ImageButton maaButton = (ImageButton)findViewById(R.id.maaButton);
         maaButton.setOnClickListener(buttonOnClickListener);
+
+        if(!isInternetAvailable())
+        {
+            Toast.makeText(this, "You are not connected to Internet !!! Don't worry, You will still be able to browse through the app, but ONLY OFFLINE data will be displayed. It is possible that some recently updated data will not be displayed.", Toast.LENGTH_LONG);
+        }
+
     }
 
     View.OnClickListener buttonOnClickListener = new View.OnClickListener() {
@@ -177,6 +193,11 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, DisciplesListActivity.class);
             startActivity(i);
         }
+        if(id == R.id.QuotesBtn)
+        {
+            Intent i = new Intent(this, QuotesActivity.class);
+            startActivity(i);
+        }
 
 
 
@@ -215,18 +236,54 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    String quotesJsonString = "";
+    void fetchQuoteJson()
+    {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String urlStr = "https://quarkbackend.com/getfile/sohambhowmik/quotes";
+                    quotesJsonString = "";
+
+                    // Create a URL for the desired page
+                    URL url = new URL(urlStr);
+
+                    // Read all the text returned by the server
+                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                    String str;
+
+                    while ((str = in.readLine()) != null) {
+                        Log.d("Str",str);
+                        quotesJsonString = quotesJsonString+str;
+                    }
+                    in.close();
+
+                } catch (MalformedURLException e) {
+                    Log.d("MalformedURLException", e.getLocalizedMessage());
+                } catch (IOException e) {
+                    Log.d("IOERR", e.getLocalizedMessage());
+                }
+            }
+        });
+    }
 
     Quote fetchQuote()
     {
         ArrayList<Quote> quotesArr = new ArrayList<>();
-
-
-        InputStream is = this.getResources().openRawResource(R.raw.quotes);
-
+        String jsontext = "";
         try {
-            byte[] buffer = new byte[is.available()];
-            while (is.read(buffer) != -1) ;
-            String jsontext = new String(buffer);
+            if(quotesJsonString.length()>0)
+            {
+                jsontext = quotesJsonString;
+            }
+            else {
+                InputStream is = this.getResources().openRawResource(R.raw.quotes);
+                byte[] buffer = new byte[is.available()];
+                while (is.read(buffer) != -1) ;
+                jsontext = new String(buffer);
+            }
+
             JSONArray jArray = new JSONArray(jsontext);
             for (int i = 0; i < jArray.length(); i++) {
                 JSONObject jObj = jArray.getJSONObject(i);
@@ -250,7 +307,7 @@ public class MainActivity extends AppCompatActivity
         qCount++;
         Quote quote = quotesArr.get(qCount);
 
-        if(qCount<quotesArr.size()-1)
+        if(qCount==quotesArr.size()-1)
         {
             qCount=0;
         }
@@ -324,6 +381,17 @@ public class MainActivity extends AppCompatActivity
 
         quoteTv.setText(quote.getQuote());
         authorTV.setText(quote.getAuthor());
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 }

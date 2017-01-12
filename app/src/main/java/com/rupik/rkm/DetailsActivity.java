@@ -50,6 +50,8 @@ public class DetailsActivity extends AppCompatActivity{
 
     String eng_src_file_name;
     String bengali_src_file_name;
+    String engURL;
+    String bengURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +68,29 @@ public class DetailsActivity extends AppCompatActivity{
             case "SriRamakrishna":
                 eng_src_file_name = "ramakrishna";
                 bengali_src_file_name = "ramakrishna_bengali";
+                engURL = "https://quarkbackend.com/getfile/sohambhowmik/sriramakrishna";
+                bengURL = "https://quarkbackend.com/getfile/sohambhowmik/sri-ramakrishna-beng";
                 break;
 
             case "Swamiji":
                 eng_src_file_name = "swami_vivekanenda";
                 bengali_src_file_name = "swami_vivekanenda_bengali";
+                engURL = "https://quarkbackend.com/getfile/sohambhowmik/swami-vivekananda-eng";
+                bengURL = "https://quarkbackend.com/getfile/sohambhowmik/swamiji-beng";
                 break;
 
             case "MaaSaradaDevi":
                 eng_src_file_name = "sarada_devi";
                 bengali_src_file_name = "sarada_devi_bengali";
+                engURL = "https://quarkbackend.com/getfile/sohambhowmik/maa-saradadevi-eng";
+                bengURL = "https://quarkbackend.com/getfile/sohambhowmik/maa-saradadevi-beng";
                 break;
         }
 
         SharedPreferences sp = this.getSharedPreferences("prefs",MODE_PRIVATE);
         lang_prefs = sp.getInt("lang_prefs",1);
-        displayData();
+        //displayData();
+        fetchMonkJson();
 
         Button prevButton = (Button)findViewById(R.id.prev_page_button);
         prevButton.setOnClickListener(new View.OnClickListener() {
@@ -127,13 +136,15 @@ public class DetailsActivity extends AppCompatActivity{
             case R.id.lang_sel_eng:
                 if(lang_prefs==-1) {
                     lang_prefs=1;
-                    displayData();
+//                    displayData();
+                    fetchMonkJson();
                 }
                 break;
             case R.id.lang_sel_bengali:
                 if(lang_prefs==1) {
                     lang_prefs=-1;
-                    displayData();
+//                    displayData();
+                    fetchMonkJson();
                 }
                 break;
         }
@@ -146,7 +157,45 @@ public class DetailsActivity extends AppCompatActivity{
     }
 
 
+    String monkJsonString = "";
 
+    void fetchMonkJson()
+    {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    monkJsonString = "";
+                    String urlStr;
+                    if (lang_prefs == 1) {
+                        urlStr = engURL;
+                    }
+                    else {
+                        urlStr = bengURL;
+                    }
+                    // Create a URL for the desired page
+                    URL url = new URL(urlStr);
+
+                    // Read all the text returned by the server
+                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                    String str;
+
+                    while ((str = in.readLine()) != null) {
+                        Log.d("Str",str);
+                        monkJsonString = monkJsonString+str;
+                    }
+                    in.close();
+                    displayData();
+                } catch (MalformedURLException e) {
+                    Log.d("MalformedURLException", e.getLocalizedMessage());
+                    displayData();
+                } catch (IOException e) {
+                    Log.d("IOERR", e.getLocalizedMessage());
+                    displayData();
+                }
+            }
+        });
+    }
 
 
     void displayData()
@@ -155,51 +204,40 @@ public class DetailsActivity extends AppCompatActivity{
 
         detailsArrayList = new ArrayList<>();
 
-        String PACKAGE_NAME = getApplicationContext().getPackageName();
 
-        int fileName;
-        if(lang_prefs==1)
-        {
-            fileName = getResources().getIdentifier(PACKAGE_NAME+":raw/"+eng_src_file_name , null, null);
-        }
-        else
-        {
-            fileName = getResources().getIdentifier(PACKAGE_NAME+":raw/"+bengali_src_file_name , null, null);
-        }
 
         try {
 
+            //https://quarkbackend.com/getfile/sohambhowmik/sriramakrishna
             //https://lookaside.fbsbx.com/file/ramakrishna.json?token=AWwOE5j3_xzOAqUXcGp0I8fHut1nt-Ljh8LCi6Gi4LBvfeYLBcaYbkeyEDYxAybhpw8nx1X_tDY4MKxMSemIdFylZrFzsnblkLAX8HftzInGrM8dyiA2R09-3dJt7WPMjxgDkzlPbNj9IggysOi_A59C
+            //https://quarkbackend.com/getfile/sohambhowmik/sri-ramakrishna-beng
 
 
-//            AsyncTask.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        // Create a URL for the desired page
-//                        URL url = new URL("https://drive.google.com/open?id=0B2H6wfbSDsXZYjh2ejBwcVNBTW8");
-//
-//                        // Read all the text returned by the server
-//                        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-//                        String str;
-//                        while ((str = in.readLine()) != null) {
-//                            Log.d("Str",str);
-//                        }
-//                        in.close();
-//                    } catch (MalformedURLException e) {
-//                        Log.d("MalformedURLException", e.getLocalizedMessage());
-//                    } catch (IOException e) {
-//                        Log.d("IOERR", e.getLocalizedMessage());
-//                    }
-//                }
-//            });
+            String jsontext;
+            if(monkJsonString.length() > 0)
+            {
+                jsontext = monkJsonString;
+            }
+            else {
+                String PACKAGE_NAME = getApplicationContext().getPackageName();
+
+                int fileName;
+                if (lang_prefs == 1) {
+                    fileName = getResources().getIdentifier(PACKAGE_NAME + ":raw/" + eng_src_file_name, null, null);
+                } else {
+                    fileName = getResources().getIdentifier(PACKAGE_NAME + ":raw/" + bengali_src_file_name, null, null);
+                }
 
 
-            InputStream is = this.getResources().openRawResource(fileName);
+                InputStream is = this.getResources().openRawResource(fileName);
 
-            byte[] buffer = new byte[is.available()];
-            while (is.read(buffer) != -1) ;
-            String jsontext = new String(buffer);
+                byte[] buffer = new byte[is.available()];
+                while (is.read(buffer) != -1) ;
+                jsontext = new String(buffer);
+
+            }
+
+
             JSONArray jArray = new JSONArray(jsontext);
             for(int i=0;i<jArray.length();i++)
             {
