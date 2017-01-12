@@ -39,6 +39,11 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    // Quotes URL --- https://api.myjson.com/bins/1d9obn
+    //https://quarkbackend.com/myfiles
+    //https://quarkbackend.com/getfile/sohambhowmik/quotes
+
     static int image_index = 1;
     final  int MAX_SCENES = 9;
 
