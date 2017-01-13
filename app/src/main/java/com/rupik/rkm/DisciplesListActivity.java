@@ -2,6 +2,7 @@ package com.rupik.rkm;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 
 public class DisciplesListActivity extends AppCompatActivity {
 
-    ArrayList<HashMap> dataList;
+    ArrayList<Disciple> dataList;
     static final String MonkName = "MonkName";
     static final String MonkImageName = "MonkImageName";
 
@@ -17,6 +18,9 @@ public class DisciplesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disciples_list);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         populateDataSourceForMonasticDisciples();
 
@@ -26,95 +30,71 @@ public class DisciplesListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+
+        return true;
+    }
 
     private void populateDataSourceForMonasticDisciples()
     {
         dataList = new ArrayList<>();
 //test
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Vivekananda");
-        hashMap.put(MonkImageName,"swamiji");
+        Disciple disciple = new Disciple("Swami Vivekananda", R.drawable.swamiji);
+        dataList.add(disciple);
 
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Brahmananda", R.drawable.swami_brahmananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Brahmananda");
-        hashMap.put(MonkImageName,"swami_brahmananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Premananda", R.drawable.swami_premananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Premananda");
-        hashMap.put(MonkImageName,"swami_premananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Yogananda", R.drawable.swami_yogananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Yogananda");
-        hashMap.put(MonkImageName,"swami_yogananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Niranjanananda", R.drawable.swami_niranjanananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Niranjanananda");
-        hashMap.put(MonkImageName,"swami_niranjanananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Saradananda", R.drawable.swami_saradananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Saradananda");
-        hashMap.put(MonkImageName,"swami_saradananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Shivananda", R.drawable.swami_shivananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Shivananda");
-        hashMap.put(MonkImageName,"swami_shivananda");
+        disciple = new Disciple("Swami Ramakrishnananda", R.drawable.swami_ramakrishnananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Ramakrishnananda");
-        hashMap.put(MonkImageName,"swami_ramakrishnananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Turiyananda", R.drawable.swami_turiyananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Turiyananda");
-        hashMap.put(MonkImageName,"swami_turiyananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Abhedananda", R.drawable.swami_abhedananda_portrait);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Abhedananda");
-        hashMap.put(MonkImageName,"swami_abhedananda_portrait");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Adbhutananda", R.drawable.swami_adbhutananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Adbhutananda");
-        hashMap.put(MonkImageName,"swami_adbhutananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Advaitananda", R.drawable.swami_advaitananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Advaitananda");
-        hashMap.put(MonkImageName,"swami_advaitananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Nirmalananda", R.drawable.swami_nirmalananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Nirmalananda");
-        hashMap.put(MonkImageName,"swami_nirmalananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Akhandananda", R.drawable.swami_akhandananda);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Akhandananda");
-        hashMap.put(MonkImageName,"swami_akhandananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Trigunatitananda", R.drawable.swami_trigunatitananda_portrait);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Trigunatitananda");
-        hashMap.put(MonkImageName,"swami_trigunatitananda_portrait");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Vivekananda", R.drawable.swamiji);
+        dataList.add(disciple);
 
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Subodhananda");
-        hashMap.put(MonkImageName,"swami_subodhananda");
-        dataList.add(hashMap);
-
-        hashMap = new HashMap<>();
-        hashMap.put(MonkName,"Swami Vijnanananda");
-        hashMap.put(MonkImageName,"swami_vijnanananda");
-        dataList.add(hashMap);
+        disciple = new Disciple("Swami Vijnanananda", R.drawable.swami_vijnanananda);
+        dataList.add(disciple);
     }
 
 }

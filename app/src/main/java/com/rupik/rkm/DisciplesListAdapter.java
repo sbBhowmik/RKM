@@ -25,9 +25,9 @@ public class DisciplesListAdapter extends BaseAdapter {
 
     Context context;
     private static LayoutInflater inflater=null;
-    ArrayList<HashMap> dataSet;
+    ArrayList<Disciple> dataSet;
 
-    public DisciplesListAdapter(Context context, ArrayList<HashMap> dataSet)
+    public DisciplesListAdapter(Context context, ArrayList<Disciple> dataSet)
     {
         this.context = context;
         this.dataSet = dataSet;
@@ -66,12 +66,10 @@ public class DisciplesListAdapter extends BaseAdapter {
         holder.discipleName = (TextView) rowView.findViewById(R.id.discipleNameTV);
         holder.discipleImageView = (ImageView) rowView.findViewById(R.id.discipleImageView);
 
-        HashMap hashmap = dataSet.get(position);
+        Disciple disciple = dataSet.get(position);
 
-        holder.discipleName.setText((String)hashmap.get(MonkName));
-        String PACKAGE_NAME = context.getPackageName();
-        final int imgId = context.getResources().getIdentifier(PACKAGE_NAME+":drawable/"+(String)hashmap.get(MonkImageName) , null, null);
-        holder.discipleImageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(),imgId));
+        holder.discipleName.setText((String)disciple.getName());
+        holder.discipleImageView.setImageResource(disciple.getImageResource());
 
         return rowView;
     }
