@@ -173,20 +173,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        boolean shouldCloseMenu = true;
-
-//        if(menuSectionSelected == 1 && id == R.id.menu_monastic_disciples)
-//        {
-//            shouldCloseMenu = false;
-//            menuSectionSelected = -1;
-//            invalidateOptionsMenu();
-//        }
-//        else if(id == R.id.menu_monastic_disciples)
-//        {
-//            shouldCloseMenu = false;
-//            menuSectionSelected = 1;
-//            invalidateOptionsMenu();
-//        }
 
         if(id == R.id.monasticDisciplesBtn)
         {
@@ -200,9 +186,15 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        }, 300);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
 
         return true;
     }

@@ -1,11 +1,15 @@
 package com.rupik.rkm;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -19,6 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import lj_3d.gearloadinglayout.gearViews.GearView;
+
 public class QuotesActivity extends AppCompatActivity {
 
     ArrayList<Quote> quotesArr;
@@ -30,9 +36,14 @@ public class QuotesActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
-//        fetchQuoteJson(); //// TODO: 12/01/17
-        displayQuote();
+        ListView qListView = (ListView) findViewById(R.id.quotesListView);
+        qListView.setVisibility(View.INVISIBLE);
+        displayGearAnimation(true);
+        fetchQuoteJson();
+        //displayQuote();
     }
 
     @Override
@@ -69,10 +80,19 @@ public class QuotesActivity extends AppCompatActivity {
                     }
                     in.close();
 
+
                 } catch (MalformedURLException e) {
                     Log.d("MalformedURLException", e.getLocalizedMessage());
                 } catch (IOException e) {
                     Log.d("IOERR", e.getLocalizedMessage());
+                }
+                finally {
+                    QuotesActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            displayQuote();
+                        }
+                    });
+
                 }
             }
         });
@@ -80,6 +100,7 @@ public class QuotesActivity extends AppCompatActivity {
 
     void displayQuote()
     {
+        displayGearAnimation(false);
         quotesArr = new ArrayList<>();
         String jsontext = "";
         try {
@@ -108,7 +129,9 @@ public class QuotesActivity extends AppCompatActivity {
         }
         catch (Exception e)
         {
-
+            //invalid json in server. So, display the local one
+            quotesJsonString = "";
+            displayQuote();
         }
 
         SharedPreferences sp = this.getSharedPreferences("RKM_Prefs", MODE_PRIVATE);
@@ -131,7 +154,20 @@ public class QuotesActivity extends AppCompatActivity {
         spEditor.commit();
 
         ListView qListView = (ListView) findViewById(R.id.quotesListView);
+        qListView.setVisibility(View.VISIBLE);
         QuotesListAdapter adapter = new QuotesListAdapter(this, quotesArr);
         qListView.setAdapter(adapter);
+    }
+
+    void displayGearAnimation(boolean shouldDisplay)
+    {
+        GearView gearHolderView = (GearView)findViewById(R.id.gearHolderView);
+        if(shouldDisplay) {
+            gearHolderView.setVisibility(View.VISIBLE);
+            gearHolderView.startSpinning(false);
+        }
+        else {
+            gearHolderView.setVisibility(View.GONE);
+        }
     }
 }
