@@ -29,7 +29,8 @@
         <activity android:name=".DetailsActivity" />
         <activity android:name=".MonksListActivity" />
         <activity android:name=".DisciplesListActivity" />
-        <activity android:name=".QuotesActivity"></activity>
+        <activity android:name=".QuotesActivity" />
+        <activity android:name=".AddQuoteActivity"></activity>
     </application>
 
 </manifest>

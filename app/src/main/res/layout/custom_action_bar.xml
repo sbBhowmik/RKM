@@ -3,14 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/customBackButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/back_btn"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_weight="0.1"
+        />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/action_bar_title"
         android:text="RKM"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-smallcaps"
         android:textColor="#ffffff"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_weight="0.9"
+        />
+
+    <ImageButton
+        android:id="@+id/commentBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/comment_icon"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_weight="0.1"
+        />
+
+    <ImageButton
+        android:id="@+id/changeLanguageBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/eng_beng_1"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_weight="0.1"
+        android:layout_marginLeft="10dp"
+        />
+
+
 </LinearLayout>

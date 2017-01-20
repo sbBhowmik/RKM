@@ -296,7 +296,10 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sp = this.getSharedPreferences("RKM_Prefs", MODE_PRIVATE);
         int qCount = sp.getInt("Quote_Number", 0);
 
-
+        if(qCount >= quotesArr.size()-1)
+        {
+            qCount = quotesArr.size()-1;
+        }
         Quote quote = quotesArr.get(qCount);
 
         qCount++;
