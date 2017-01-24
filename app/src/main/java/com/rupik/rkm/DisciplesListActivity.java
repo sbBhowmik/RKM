@@ -90,9 +90,6 @@ public class DisciplesListActivity extends AppCompatActivity {
         disciple = new Disciple("Swami Trigunatitananda", R.drawable.swami_trigunatitananda_portrait);
         dataList.add(disciple);
 
-        disciple = new Disciple("Swami Vivekananda", R.drawable.swamiji);
-        dataList.add(disciple);
-
         disciple = new Disciple("Swami Vijnanananda", R.drawable.swami_vijnanananda);
         dataList.add(disciple);
     }

@@ -27,6 +27,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.fgl.enhance.connector.FglEnhance;
+
 import lj_3d.gearloadinglayout.gearViews.GearView;
 
 public class QuotesActivity extends AppCompatActivity {
