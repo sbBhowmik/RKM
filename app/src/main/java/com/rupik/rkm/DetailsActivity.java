@@ -1,5 +1,6 @@
 package com.rupik.rkm;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,9 +14,11 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -40,6 +44,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
+import lj_3d.gearloadinglayout.gearViews.GearView;
 
 
 public class DetailsActivity extends AppCompatActivity{
@@ -60,6 +66,62 @@ public class DetailsActivity extends AppCompatActivity{
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        ImageButton backBtn = (ImageButton)findViewById(R.id.customBackButton);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        ImageButton changeLanguageBtn = (ImageButton)findViewById(R.id.changeLanguageBtn);
+        final PopupMenu popup = new PopupMenu(DetailsActivity.this, changeLanguageBtn);
+        popup.getMenuInflater().inflate(R.menu.language_selection, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.lang_sel_eng:
+                        if(lang_prefs==-1) {
+                            lang_prefs=1;
+//                    displayData();
+                            fetchMonkJson();
+                        }
+                        break;
+                    case R.id.lang_sel_bengali:
+                        if(lang_prefs==1) {
+                            lang_prefs=-1;
+//                    displayData();
+                            fetchMonkJson();
+                        }
+                        break;
+                }
+
+                SharedPreferences sp = DetailsActivity.this.getSharedPreferences("prefs",MODE_PRIVATE);
+                SharedPreferences.Editor spEditor = sp.edit();
+                spEditor.putInt("lang_prefs",lang_prefs);
+                spEditor.commit();
+                return true;
+            }
+        });
+
+        changeLanguageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.show();//showing popup menu
+            }
+        });
+
+        ImageButton addCommentBtn = (ImageButton)findViewById(R.id.commentBtn);
+        addCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         String buttonType = extras.getString("buttonType");
@@ -118,49 +180,51 @@ public class DetailsActivity extends AppCompatActivity{
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.language_selection, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-
-            case R.id.lang_sel_eng:
-                if(lang_prefs==-1) {
-                    lang_prefs=1;
-//                    displayData();
-                    fetchMonkJson();
-                }
-                break;
-            case R.id.lang_sel_bengali:
-                if(lang_prefs==1) {
-                    lang_prefs=-1;
-//                    displayData();
-                    fetchMonkJson();
-                }
-                break;
-        }
-
-        SharedPreferences sp = this.getSharedPreferences("prefs",MODE_PRIVATE);
-        SharedPreferences.Editor spEditor = sp.edit();
-        spEditor.putInt("lang_prefs",lang_prefs);
-        spEditor.commit();
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.language_selection, menu);
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                this.finish();
+//                return true;
+//
+//            case R.id.lang_sel_eng:
+//                if(lang_prefs==-1) {
+//                    lang_prefs=1;
+////                    displayData();
+//                    fetchMonkJson();
+//                }
+//                break;
+//            case R.id.lang_sel_bengali:
+//                if(lang_prefs==1) {
+//                    lang_prefs=-1;
+////                    displayData();
+//                    fetchMonkJson();
+//                }
+//                break;
+//        }
+//
+//        SharedPreferences sp = this.getSharedPreferences("prefs",MODE_PRIVATE);
+//        SharedPreferences.Editor spEditor = sp.edit();
+//        spEditor.putInt("lang_prefs",lang_prefs);
+//        spEditor.commit();
+//        return true;
+//    }
 
 
     String monkJsonString = "";
 
     void fetchMonkJson()
     {
+        displayGearAnimation(true);
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -253,17 +317,26 @@ public class DetailsActivity extends AppCompatActivity{
                 detailsArrayList.add(details);
             }
 
-            if(detailsArrayList.size()>0)
-                updateUI();
+            if(detailsArrayList.size()>0) {
+                Handler handler = new Handler(getMainLooper());
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateUI();
+                    }
+                }, 300);
+            }
         }
         catch (Exception e)
         {
-
+            Log.d("",e.getLocalizedMessage());
         }
     }
 
     void updateUI()
     {
+        displayGearAnimation(false);
+
         validateButtons();
 
         TextView pageNumberTV = (TextView)findViewById(R.id.pageNumber);
@@ -338,5 +411,16 @@ public class DetailsActivity extends AppCompatActivity{
         }
     }
 
+    void displayGearAnimation(boolean shouldDisplay)
+    {
+        GearView gearHolderView = (GearView)findViewById(R.id.gearHolderView);
+        if(shouldDisplay) {
+            gearHolderView.setVisibility(View.VISIBLE);
+            gearHolderView.startSpinning(false);
+        }
+        else {
+            gearHolderView.setVisibility(View.GONE);
+        }
+    }
 
 }

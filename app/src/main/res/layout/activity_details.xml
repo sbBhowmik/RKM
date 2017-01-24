@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:gear="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +16,7 @@
         android:id="@+id/person_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ramakrishna Paramhansa"
+        android:text=""
         android:gravity="center"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/person_title"
         android:layout_marginTop="20dp"
-        android:text="Early Life"
+        android:text=""
         android:gravity="center"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -47,7 +48,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="Birth and Childhood"
+        android:text=""
         android:textColor="#000000"
         android:textSize="15sp"
         android:fontFamily="serif"
@@ -81,7 +82,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/kamarpukur_ramakrishna_hut"
+
                 android:scaleType="fitCenter"
 
                 android:background="#3d3706"
@@ -98,7 +99,7 @@
                 android:fontFamily="serif"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                android:text="Ramakrishna was born on 18 February 1836, in the village of Kamarpukur, in the Hoogli district of West Bengal, into a very poor, pious, and orthodox brahmin family.[7] Kamarpukur was untouched by the glamour of the city and contained rice fields, tall palms, royal banyans, a few lakes, and two cremation grounds. His parents were Khudiram Chattopadhyay and Chandramani Devi. According to his followers, Ramakrishna's parents experienced supernatural incidents and visions before his birth. In Gaya his father Khudiram had a dream in which Lord Gadadhara (a form of Vishnu), said that he would be born as his son. Chandramani Devi is said to have had a vision of light entering her womb from Shiva's temple."
+                android:text=""
                 />
 
         </RelativeLayout>
@@ -120,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:text="Page 1 of 5"
+        android:text=""
         android:gravity="center"
         android:layout_marginBottom="44dp"
         android:layout_centerHorizontal="true"
@@ -136,6 +137,22 @@
         android:text="Next Page"
         android:layout_marginBottom="44dp"
         android:layout_alignParentRight="true"
+        />
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gearHolderView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        gear:mainDiameter="50dp"
+        gear:secondDiameter="10dp"
+        gear:innerDiameter="10dp"
+        gear:enableCutCenter="true"
+        gear:teethWidth="10dp"
+        gear:mainColor="#3F51B5"
+        gear:innerColor="#00FF4081"
+        gear:rotateAngle="10"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

@@ -54,7 +54,7 @@
         android:fontFamily="sans-serif"
         android:textStyle="bold"
         />
-    
+
     <TextView
         android:id="@+id/QuoteDiscliamerTV"
         android:layout_width="match_parent"
